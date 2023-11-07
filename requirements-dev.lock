@@ -8,8 +8,8 @@
 
 -e file:.
 ansible-compat==4.1.10
-ansible-core==2.15.5
-ansible-lint==6.21.1
+ansible-core==2.16.0
+ansible-lint==6.22.0
 argcomplete==3.1.4
 attrs==23.1.0
 autoflake8==0.4.1
@@ -52,7 +52,7 @@ requests==2.31.0
 resolvelib==1.0.1
 rich==13.6.0
 rpds-py==0.12.0
-ruamel-yaml==0.17.40
+ruamel-yaml==0.18.5
 ruamel-yaml-clib==0.2.8
 subprocess-tee==0.4.1
 typing-extensions==4.8.0
