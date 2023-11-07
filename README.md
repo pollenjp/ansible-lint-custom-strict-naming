@@ -1,5 +1,10 @@
 # ansible-lint-custom-strict-naming
 
+[![PyPI](https://img.shields.io/pypi/v/ansible-lint-custom-strict-naming)](https://pypi.org/project/ansible-lint-custom-strict-naming/)
+[![PyPI Python Versions](https://img.shields.io/pypi/pyversions/ansible-lint-custom-strict-naming)](https://pypi.org/project/ansible-lint-custom-strict-naming/)
+[![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Downloads](https://pepy.tech/badge/ansible-lint-custom-strict-naming)](https://pepy.tech/project/ansible-lint-custom-strict-naming)
+
 ## Rules
 
 ### var_name_prefix
