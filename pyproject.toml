@@ -6,6 +6,16 @@ authors = [{ name = "pollenjp", email = "polleninjp@gmail.com" }]
 dependencies = ["ansible-lint>=6.21.1"]
 readme = "README.md"
 requires-python = ">= 3.11"
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/pollenjp/ansible-lint-custom-strict-naming"
+"Repository" = "https://github.com/pollenjp/ansible-lint-custom-strict-naming"
+
 
 [build-system]
 requires = ["setuptools", "wheel"]
