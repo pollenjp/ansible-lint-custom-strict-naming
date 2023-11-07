@@ -1,0 +1,4 @@
+[flake8]
+# <https://github.com/psf/black/blob/4f5268af4f0939fbc0d5ec4fd3d113b40a4c92e9/docs/guides/using_black_with_other_tools.md>
+extend-ignore = E203
+max-line-length = 120
