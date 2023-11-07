@@ -27,7 +27,7 @@ Variables in roles or tasks should have a `<role_name>_role__` or `<role_name>_t
 
 class VarNamePrefix(AnsibleLintRule):
     id = ID
-    description = ""
+    description = DESCRIPTION
     tags = ["productivity"]
 
     def matchtask(self, task: Task, file: Lintable | None = None) -> bool | str:

@@ -23,3 +23,12 @@ build:
 .PHONY: clean
 clean:
 	rm -rf build dist *.egg-info
+
+publish-test:
+	${MAKE} build
+	rye publish --verbose --repository testpypi --repository-url https://test.pypi.org/legacy/
+
+
+publish-prod:
+	${MAKE} build
+	rye publish
