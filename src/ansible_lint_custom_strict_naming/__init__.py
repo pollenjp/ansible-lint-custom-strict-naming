@@ -16,7 +16,7 @@ def detect_strict_file_type(file: Lintable) -> StrictFileType | None:
     # Get current role name or task name
     match file.kind:
         case "tasks":
-            if file.path.parents[2] == "roles":  # roles/<role_name>/tasks/<some_tasks>.yml
+            if file.path.parents[2].name == "roles":  # roles/<role_name>/tasks/<some_tasks>.yml
                 return StrictFileType.ROLE_TASKS_FILE
             else:  # playbooks/tasks/some_task.yml
                 return StrictFileType.TASKS_FILE

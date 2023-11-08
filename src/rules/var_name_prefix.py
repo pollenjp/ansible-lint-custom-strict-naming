@@ -55,6 +55,7 @@ def match_task_for_set_fact_module(task: Task, file: Lintable | None = None) -> 
 
 
 def match_tasks_for_role_tasks_file(task: Task, file: Lintable) -> str | None:
+    # roles/<role_name>/tasks/<some_tasks>.yml
     prefix_format = f"{file.path.parents[1].name}_role__"
     for key in task.args.keys():
         if not key.startswith(prefix_format):
@@ -63,7 +64,7 @@ def match_tasks_for_role_tasks_file(task: Task, file: Lintable) -> str | None:
 
 
 def match_tasks_for_tasks_file(task: Task, file: Lintable) -> str | None:
-    # roles/<role_name>/tasks/<some_tasks>.yml
+    # <not_roles>/**/tasks/<some_tasks>.yml
     prefix_format = f"{file.path.stem}_tasks__"
     for key in task.args.keys():
         if not key.startswith(prefix_format):
