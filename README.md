@@ -9,7 +9,7 @@
 
 ### var_name_prefix
 
-- [x] `<role_name>_role__` , `<task_name>_task__`
+- [x] `<role_name>_role__` , `<task_name>_tasks__`
 
   - | prefix                | Variables defined in |
     | :-------------------- | :------------------- |
@@ -50,7 +50,7 @@
 
 ## Others
 
-### Why double underscores?
+### Double underscores?
 
 - Single underscore (`_`) is used to separate words. Double underscores (`__`) are used to separate chunks for readability.
 - examples

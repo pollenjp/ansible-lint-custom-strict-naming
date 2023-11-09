@@ -22,7 +22,7 @@ build:
 
 .PHONY: clean
 clean:
-	rm -rf build dist *.egg-info
+	rm -rf dist *.egg-info
 
 publish-test:
 	${MAKE} build
