@@ -11,10 +11,10 @@
 
 - [x] `<role_name>_role__` , `<task_name>_tasks__`
 
-  - | prefix                | Variables defined in |
-    | :-------------------- | :------------------- |
-    | `<role_name>_role__`  | `roles/tasks/`       |
-    | `<role_name>_tasks__` | `<not_roles>/tasks/` |
+  - | prefix                | Variables defined in       |
+    | :-------------------- | :------------------------- |
+    | `<role_name>_role__`  | `roles/<role_name>/tasks/` |
+    | `<role_name>_tasks__` | `<not_roles>/**/tasks/`    |
 
   - In ansible-lint, `var-naming[no-role-prefix]` require to use `<role_name>_` as prefix. But it is not enough to avoid name collision or search defined position. So, I add `_role__` or `_tasks__` to the prefix.
 
