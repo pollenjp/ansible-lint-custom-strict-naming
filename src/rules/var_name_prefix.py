@@ -12,6 +12,8 @@ from ansiblelint.utils import Task
 from ansible_lint_custom_strict_naming import StrictFileType
 from ansible_lint_custom_strict_naming import base_name
 from ansible_lint_custom_strict_naming import detect_strict_file_type
+from ansible_lint_custom_strict_naming import get_role_name_from_role_tasks_file
+from ansible_lint_custom_strict_naming import get_tasks_name_from_tasks_file
 
 logger = getLogger(__name__)
 logger.addHandler(NullHandler())
@@ -34,6 +36,10 @@ class VarNamePrefix(AnsibleLintRule):
         match task.action:
             case "ansible.builtin.set_fact":
                 return match_task_for_set_fact_module(task, file)
+            case "ansible.builtin.include_role":
+                return match_task_for_include_role_module(task, file)
+            case "ansible.builtin.include_tasks":
+                return match_task_for_include_tasks_module(task, file)
             case _:
                 return False
 
@@ -56,17 +62,49 @@ def match_task_for_set_fact_module(task: Task, file: Lintable | None = None) -> 
 
 def match_tasks_for_role_tasks_file(task: Task, file: Lintable) -> str | None:
     # roles/<role_name>/tasks/<some_tasks>.yml
-    prefix_format = f"{file.path.parents[1].name}_role__"
+    prefix_format = f"{get_role_name_from_role_tasks_file(file)}_role__"
     for key in task.args.keys():
         if not key.startswith(prefix_format):
-            return f"Variables in role should have a `{prefix_format}` prefix."
+            return f"Variables in role should have a '{prefix_format}' prefix."
     return None
 
 
 def match_tasks_for_tasks_file(task: Task, file: Lintable) -> str | None:
     # <not_roles>/**/tasks/<some_tasks>.yml
-    prefix_format = f"{file.path.stem}_tasks__"
+    prefix_format = f"{get_tasks_name_from_tasks_file(file)}_tasks__"
     for key in task.args.keys():
         if not key.startswith(prefix_format):
-            return f"Variables in role should have a `{prefix_format}` prefix."
+            return f"Variables in tasks should have a '{prefix_format}' prefix."
     return None
+
+
+def match_task_for_include_role_module(task: Task, file: Lintable | None = None) -> bool | str:
+    """`ansible.builtin.include_role`'s vars"""
+
+    if (task_vars := task.get("vars")) is None:
+        return False
+    if (role_name := task.args.get("name")) is None:
+        return False
+
+    # check vars
+    prefix = f"{role_name}_role__arg__"
+    for key in task_vars.keys():
+        if not key.startswith(f"{prefix}"):
+            return f"Variables in 'include_role' should have a '{prefix}' prefix."
+    return False
+
+
+def match_task_for_include_tasks_module(task: Task, file: Lintable | None = None) -> bool | str:
+    """`ansible.builtin.include_tasks`'s vars"""
+
+    if (task_vars := task.get("vars")) is None:
+        return False
+    if (role_name := task.args.get("name")) is None:
+        return False
+
+    # check vars
+    prefix = f"{role_name}_tasks__arg__"
+    for key in task_vars.keys():
+        if not key.startswith(f"{prefix}"):
+            return f"Variables in 'include_tasks' should have a '{prefix}' prefix."
+    return False

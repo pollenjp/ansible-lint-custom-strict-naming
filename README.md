@@ -5,6 +5,14 @@
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Downloads](https://pepy.tech/badge/ansible-lint-custom-strict-naming)](https://pepy.tech/project/ansible-lint-custom-strict-naming)
 
+Ansible is a powerful tool for configuration management.
+But it is difficult to maintain the YAML playbook quality.
+Variable maintenance is one of the difficult tasks because they can be overwritten unexpectedly,
+if you don't care about such like [precedence](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#understanding-variable-precedence) and position where variables are defined.
+
+This is a strict rule for variable naming, using [ansible-lint](https://github.com/ansible/ansible-lint).
+Strict naming rule is useful to avoid name collision and to search defined position.
+
 ## Rules
 
 ### var_name_prefix
@@ -30,13 +38,14 @@
     - var or const prefix
   - examples
 
-    | var                       | description                                                                           |
-    | :------------------------ | :------------------------------------------------------------------------------------ |
-    | `var__fizz`               | defined in playbook by `ansible.builtin.set_fact` or `register`                       |
-    | `some_role__var__fizz`    | defined in `roles/tasks` by `ansible.builtin.set_fact` or `register`                  |
-    | `some_role__const__fizz`  | defined by `ansible.builtin.include_role`'s vars key and not changed in `roles/tasks` |
-    | `some_tasks__var__fizz`   | defined in `tasks` by `ansible.builtin.set_fact` or `register`                        |
-    | `some_tasks__const__fizz` | defined by `ansible.builtin.include_role`'s vars key and not changed in `tasks`       |
+    | var                       | description                                                                                               |
+    | :------------------------ | :-------------------------------------------------------------------------------------------------------- |
+    | `var__fizz`               | defined in playbook by `ansible.builtin.set_fact` or `register`                                           |
+    | `some_role__var__fizz`    | defined in `roles/<role_name>/tasks` by `ansible.builtin.set_fact` or `register`                          |
+    | `some_role__arg__fizz`    | defined by `ansible.builtin.include_role`'s `vars` key and shouldn't changed in `roles/<role_name>/tasks` |
+    | `some_role__const__fizz`  | defined only in `roles/<role_name>/vars/`.                                                                |
+    | `some_tasks__var__fizz`   | defined in `tasks` by `ansible.builtin.set_fact` or `register`                                            |
+    | `some_tasks__const__fizz` | defined by `ansible.builtin.include_role`'s vars key and not changed in `tasks`                           |
 
     ```yaml
     tasks:
