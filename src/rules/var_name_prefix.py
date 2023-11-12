@@ -51,31 +51,23 @@ def match_task_for_set_fact_module(task: Task, file: Lintable | None = None) -> 
     if (file_type := detect_strict_file_type(file)) is None:
         return False
 
+    prefix: str
     match file_type:
+        case StrictFileType.PLAYBOOK_FILE:
+            prefix = "var__"
         case StrictFileType.ROLE_TASKS_FILE:
-            return match_tasks_for_role_tasks_file(task, file) or False
+            # roles/<role_name>/tasks/<some_tasks>.yml
+            prefix = f"{get_role_name_from_role_tasks_file(file)}_role__var__"
         case StrictFileType.TASKS_FILE:
-            return match_tasks_for_tasks_file(task, file) or False
-        case _:
-            raise NotImplementedError
+            # <not_roles>/**/tasks/<some_tasks>.yml
+            prefix = f"{get_tasks_name_from_tasks_file(file)}_tasks__var__"
+        case StrictFileType.UNKNOWN:
+            return False
 
-
-def match_tasks_for_role_tasks_file(task: Task, file: Lintable) -> str | None:
-    # roles/<role_name>/tasks/<some_tasks>.yml
-    prefix_format = f"{get_role_name_from_role_tasks_file(file)}_role__"
     for key in task.args.keys():
-        if not key.startswith(prefix_format):
-            return f"Variables in role should have a '{prefix_format}' prefix."
-    return None
-
-
-def match_tasks_for_tasks_file(task: Task, file: Lintable) -> str | None:
-    # <not_roles>/**/tasks/<some_tasks>.yml
-    prefix_format = f"{get_tasks_name_from_tasks_file(file)}_tasks__"
-    for key in task.args.keys():
-        if not key.startswith(prefix_format):
-            return f"Variables in tasks should have a '{prefix_format}' prefix."
-    return None
+        if not key.startswith(prefix):
+            return f"Variables should have a '{prefix}' prefix."
+    return False
 
 
 def match_task_for_include_role_module(task: Task, file: Lintable | None = None) -> bool | str:
