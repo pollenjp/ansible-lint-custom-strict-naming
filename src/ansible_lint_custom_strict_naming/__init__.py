@@ -2,6 +2,8 @@
 from enum import Enum
 
 # Third Party Library
+from ansiblelint.constants import FILENAME_KEY
+from ansiblelint.constants import LINE_NUMBER_KEY
 from ansiblelint.file_utils import Lintable
 
 base_name = "ansible-lint-custom-strict-naming"
@@ -34,3 +36,12 @@ def get_role_name_from_role_tasks_file(file: Lintable) -> str:
 
 def get_tasks_name_from_tasks_file(file: Lintable) -> str:
     return f"{file.path.stem}"
+
+
+def is_registered_key(key: str) -> bool:
+    return key in set(
+        (
+            FILENAME_KEY,
+            LINE_NUMBER_KEY,
+        )
+    )
