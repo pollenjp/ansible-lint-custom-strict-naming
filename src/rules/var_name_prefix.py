@@ -4,7 +4,6 @@ from logging import getLogger
 from pathlib import Path
 
 # Third Party Library
-from ansiblelint.constants import FILENAME_KEY
 from ansiblelint.constants import LINE_NUMBER_KEY
 from ansiblelint.errors import MatchError
 from ansiblelint.file_utils import Lintable
