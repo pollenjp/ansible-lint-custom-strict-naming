@@ -34,6 +34,10 @@ class VarNamePrefix(AnsibleLintRule):
         match task.action:
             case "ansible.builtin.set_fact":
                 return match_task_for_set_fact_module(task, file)
+            case "ansible.builtin.include_role":
+                return match_task_for_include_role_module(task, file)
+            case "ansible.builtin.include_tasks":
+                return match_task_for_include_tasks_module(task, file)
             case _:
                 return False
 
@@ -70,3 +74,35 @@ def match_tasks_for_tasks_file(task: Task, file: Lintable) -> str | None:
         if not key.startswith(prefix_format):
             return f"Variables in role should have a `{prefix_format}` prefix."
     return None
+
+
+def match_task_for_include_role_module(task: Task, file: Lintable | None = None) -> bool | str:
+    """`ansible.builtin.include_role`'s vars"""
+
+    if (task_vars := task.get("vars")) is None:
+        return False
+    if (role_name := task.args.get("name")) is None:
+        return False
+
+    # check vars
+    prefix = f"{role_name}_role__arg__"
+    for key in task_vars.keys():
+        if not key.startswith(f"{prefix}"):
+            return f"Variables in role should have a `{prefix}` prefix."
+    return False
+
+
+def match_task_for_include_tasks_module(task: Task, file: Lintable | None = None) -> bool | str:
+    """`ansible.builtin.include_tasks`'s vars"""
+
+    if (task_vars := task.get("vars")) is None:
+        return False
+    if (role_name := task.args.get("name")) is None:
+        return False
+
+    # check vars
+    prefix = f"{role_name}_tasks__arg__"
+    for key in task_vars.keys():
+        if not key.startswith(f"{prefix}"):
+            return f"Variables in tasks should have a `{prefix}` prefix."
+    return False
