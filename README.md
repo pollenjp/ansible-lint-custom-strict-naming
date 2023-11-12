@@ -5,6 +5,12 @@
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Downloads](https://pepy.tech/badge/ansible-lint-custom-strict-naming)](https://pepy.tech/project/ansible-lint-custom-strict-naming)
 
+Ansible is a powerful tool for configuration management.
+But it is difficult to maintain the YAML playbook quality.
+
+This is a strict rule for variable naming, using [ansible-lint](https://github.com/ansible/ansible-lint).
+Strict naming rule is useful to avoid name collision and to search defined position.
+
 ## Rules
 
 ### var_name_prefix
