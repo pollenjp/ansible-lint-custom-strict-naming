@@ -28,15 +28,7 @@ jobs:
           chmod +x stoml
           package_version=$(./stoml pyproject.toml project.version)
           echo "PACKAGE_VERSION=${package_version}" >> $GITHUB_OUTPUT
-      - name: Check the tag is new and doesn't exist
-        run: |
-          set -eux -o pipefail
-          package_version="${{ steps.package_version.outputs.PACKAGE_VERSION }}"
-          if git fetch origin "refs/tags/v${package_version}"; then
-            echo "${package_version} tag already exists!" >&2
-            exit 1
-          fi
-      - name: tag check
+      - name: Push tag
         run: |
           set -eux -o pipefail
           git tag v${{ steps.version.outputs.version }}
