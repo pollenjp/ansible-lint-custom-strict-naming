@@ -16,10 +16,8 @@ permissions:
 jobs:
   call_autolabel_workflow:
     permissions:
-      pull-requests: write
       contents: read
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      pull-requests: write
     uses: ./.github/workflows/pull_request_release.yml
   check_release_version:
     runs-on: ubuntu-latest

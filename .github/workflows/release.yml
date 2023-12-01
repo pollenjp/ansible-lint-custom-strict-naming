@@ -38,6 +38,7 @@ jobs:
           fi
       - name: tag check
         run: |
+          set -eux -o pipefail
           git tag v${{ steps.version.outputs.version }}
           git push origin refs/tags/v${{ steps.version.outputs.version }}
       - uses: release-drafter/release-drafter@v5
