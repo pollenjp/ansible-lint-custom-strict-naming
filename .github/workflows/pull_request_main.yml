@@ -1,0 +1,43 @@
+name: Release Drafter (autolabeler & check release tag)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+permissions:
+  contents: read
+
+jobs:
+  call_autolabel_workflow:
+    uses: ./.github/workflows/pull_request_release.yml
+  check_release_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v4
+      - name: Extract package version
+        id: package_version
+        # https://github.com/freshautomations/stoml/releases
+        env:
+          STOML_VERSION: 0.7.1
+        run: |
+          set -eux -o pipefail
+          wget -O stoml "https://github.com/freshautomations/stoml/releases/download/v${STOML_VERSION}/stoml_linux_amd64"
+          chmod +x stoml
+          package_version=$(./stoml pyproject.toml project.version)
+          echo "package_version=${package_version}" >> $GITHUB_OUTPUT
+      - name: Check the tag is new and doesn't exist
+        run: |
+          set -eux -o pipefail
+          package_version="${{ steps.package_version.outputs.package_version }}"
+          if git fetch origin "refs/tags/v${package_version}"; then
+            echo "${package_version} tag already exists!" >&2
+            exit 1
+          fi
