@@ -31,7 +31,7 @@ like 'var__', '<role_name>_role__var__', or '<tasks_name>_tasks__var__'.
 class RegisterPrefix(AnsibleLintRule):
     id = ID
     description = DESCRIPTION
-    tags = ["productivity"]
+    tags = ["formatting"]
 
     def matchtask(self, task: Task, file: Lintable | None = None) -> bool | str:
         if (task_result := task.get("register")) is None:

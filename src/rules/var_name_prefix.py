@@ -35,7 +35,7 @@ UnmatchedType = bool | list[MatchError]
 class VarNamePrefix(AnsibleLintRule):
     id = ID
     description = DESCRIPTION
-    tags = ["productivity"]
+    tags = ["formatting"]
 
     def matchtask(self, task: Task, file: Lintable | None = None) -> UnmatchedType:
         match task.action:
