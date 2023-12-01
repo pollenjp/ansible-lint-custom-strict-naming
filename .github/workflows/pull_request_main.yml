@@ -1,18 +1,16 @@
+---
 name: Release Drafter (autolabeler & check release tag)
-
 on:
   workflow_dispatch:
   pull_request:
     branches:
-      - main
+      - main*
     types:
       - opened
       - reopened
       - synchronize
-
 permissions:
   contents: read
-
 jobs:
   call_autolabel_workflow:
     permissions:
