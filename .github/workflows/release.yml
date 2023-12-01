@@ -1,0 +1,41 @@
+name: Release Drafter
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  update_release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Extract package version
+        id: package_version
+        # https://github.com/freshautomations/stoml/releases
+        env:
+          STOML_VERSION: 0.7.1
+        run: |
+          set -eux -o pipefail
+          wget -O stoml "https://github.com/freshautomations/stoml/releases/download/v${STOML_VERSION}/stoml_linux_amd64"
+          chmod +x stoml
+          package_version=$(./stoml pyproject.toml project.version)
+          echo "PACKAGE_VERSION=${package_version}" >> $GITHUB_OUTPUT
+      - name: Push tag
+        run: |
+          set -eux -o pipefail
+          git tag v${{ steps.package_version.outputs.package_version }}
+          git push origin refs/tags/v${{ steps.package_version.outputs.package_version }}
+      - uses: release-drafter/release-drafter@v5
+        with:
+          config-name: release-drafter.yml
+          version: ${{ steps.package_version.outputs.PACKAGE_VERSION }}
+          publish: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
