@@ -68,3 +68,9 @@ Strict naming rule is useful to avoid name collision and to search defined posit
   - `some_role__const__app_config__name`
   - `some_role__const__app_config__token`
   - `some_role__const__app_config__version`
+
+## Docs
+
+### Articles
+
+- [ansible-lint のカスタムルールを利用して Ansible 内での変数命名規則を縛ってみた話](https://zenn.dev/pollenjp/articles/2023-12-03-ansible-lint-custom-strict-naming)
