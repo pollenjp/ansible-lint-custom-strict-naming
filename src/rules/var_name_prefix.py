@@ -88,14 +88,25 @@ class VarNamePrefix(AnsibleLintRule):
 
         # check vars
         prefix = f"{role_name}_role__arg__"
+        completely_matched_name = f"{role_name}_role__args"
+        def validate_key_name(key: str):
+            """keyが条件を満たすか"""
+            if is_registered_key(key):
+                return True
+            if key.startswith(f"{prefix}"):
+                return True
+            if key == completely_matched_name:
+                return True
+            return False
+
         return [
             self.create_matcherror(
-                message=f"Variables in 'include_role' should have a '{prefix}' prefix.",
+                message=f"Variable name in 'include_role' should have a '{prefix}' prefix or '{completely_matched_name}' as dict.",
                 lineno=task_vars.get(LINE_NUMBER_KEY),
                 filename=file,
             )
             for key in task_vars.keys()
-            if not is_registered_key(key) and not key.startswith(f"{prefix}")
+            if  not validate_key_name(key)
         ]
 
     def match_task_for_include_tasks_module(self, task: Task, file: Lintable | None = None) -> bool | list[MatchError]:
@@ -107,13 +118,25 @@ class VarNamePrefix(AnsibleLintRule):
             return False
 
         # check vars
+        prefix = f"{role_name}_role__arg__"
         prefix = f"{role_name}_tasks__arg__"
+        completely_matched_name = f"{role_name}_tasks__args"
+        def validate_key_name(key: str):
+            """keyが条件を満たすか"""
+            if is_registered_key(key):
+                return True
+            if key.startswith(f"{prefix}"):
+                return True
+            if key == completely_matched_name:
+                return True
+            return False
+
         return [
             self.create_matcherror(
-                message=f"Variables in 'include_tasks' should have a '{prefix}' prefix.",
+                message=f"Variable name in 'include_tasks' should have a '{prefix}' prefix or '{completely_matched_name}' as dict.",
                 lineno=task_vars.get(LINE_NUMBER_KEY),
                 filename=file,
             )
             for key in task_vars.keys()
-            if not is_registered_key(key) and not key.startswith(f"{prefix}")
+            if  not validate_key_name(key)
         ]
