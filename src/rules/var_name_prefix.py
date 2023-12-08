@@ -118,7 +118,6 @@ class VarNamePrefix(AnsibleLintRule):
             return False
 
         # check vars
-        prefix = f"{role_name}_role__arg__"
         prefix = f"{role_name}_tasks__arg__"
         completely_matched_name = f"{role_name}_tasks__args"
         def validate_key_name(key: str):
