@@ -43,6 +43,7 @@ Strict naming rule is useful to avoid name collision and to search defined posit
     | `var__fizz`               | defined in playbook by `ansible.builtin.set_fact` or `register`                                           |
     | `some_role__var__fizz`    | defined in `roles/<role_name>/tasks` by `ansible.builtin.set_fact` or `register`                          |
     | `some_role__arg__fizz`    | defined by `ansible.builtin.include_role`'s `vars` key and shouldn't changed in `roles/<role_name>/tasks` |
+    | `some_role__args`         | defined by `ansible.builtin.include_role`'s `vars` key and shouldn't changed in `roles/<role_name>/tasks` |
     | `some_role__const__fizz`  | defined only in `roles/<role_name>/vars/`.                                                                |
     | `some_tasks__var__fizz`   | defined in `tasks` by `ansible.builtin.set_fact` or `register`                                            |
     | `some_tasks__const__fizz` | defined by `ansible.builtin.include_role`'s vars key and not changed in `tasks`                           |
