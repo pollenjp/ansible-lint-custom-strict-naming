@@ -1,5 +1,5 @@
 ---
-name: Release Drafter (autolabeler & check release tag)
+name: TestPyPI Publish
 on:
   workflow_dispatch:
   push:

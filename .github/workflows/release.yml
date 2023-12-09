@@ -1,4 +1,4 @@
-name: Release Drafter
+name: Release & PyPI Publish
 on:
   workflow_dispatch:
   push:
@@ -55,8 +55,8 @@ jobs:
         with:
           name: release-dists
           path: dist/
-  test-pypi-publish: # https://github.com/pypa/gh-action-pypi-publish
-    name: Upload release to TestPyPI
+  pypi-publish: # https://github.com/pypa/gh-action-pypi-publish
+    name: Upload release to PyPI
     runs-on: ubuntu-latest
     needs:
       - release-build
