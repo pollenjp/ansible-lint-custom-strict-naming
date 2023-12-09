@@ -137,5 +137,5 @@ class VarNamePrefix(AnsibleLintRule):
                 filename=file,
             )
             for key in task_vars.keys()
-            if  not validate_key_name(key)
+            if not validate_key_name(key)
         ]
