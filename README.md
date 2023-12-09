@@ -15,48 +15,59 @@ Strict naming rule is useful to avoid name collision and to search defined posit
 
 ## Rules
 
-### var_name_prefix
+## var_name_prefix
 
-- [x] `<role_name>_role__` , `<task_name>_tasks__`
+### `<role_name>_role__` , `<task_name>_tasks__`
 
-  - | prefix                | Variables defined in       |
-    | :-------------------- | :------------------------- |
-    | `<role_name>_role__`  | `roles/<role_name>/tasks/` |
-    | `<role_name>_tasks__` | `<not_roles>/**/tasks/`    |
+- | prefix                | Variables defined in       |
+  | :-------------------- | :------------------------- |
+  | `<role_name>_role__`  | `roles/<role_name>/tasks/` |
+  | `<role_name>_tasks__` | `<not_roles>/**/tasks/`    |
 
-  - In ansible-lint, `var-naming[no-role-prefix]` require to use `<role_name>_` as prefix. But it is not enough to avoid name collision or search defined position. So, I add `_role__` or `_tasks__` to the prefix.
+- In ansible-lint, `var-naming[no-role-prefix]` require to use `<role_name>_` as prefix. But it is not enough to avoid name collision or search defined position. So, I add `_role__` or `_tasks__` to the prefix.
 
-- [ ] `var__`, `const__`
-  - | prefix    | description                                                                             |
-    | :-------- | :-------------------------------------------------------------------------------------- |
-    | `var__`   | Variables dynamically defined by `ansible.builtin.set_fact` or `register`               |
-    | `const__` | Variables statistically defined in such like inventory's vars, group_vars and host_vars |
-- [ ] prefix precedence
+### `var__`, `const__`
 
-  - descending order
-    - role or task prefix
-    - var or const prefix
-  - examples
+- `var__` prefix
+  - Variables dynamically defined by `ansible.builtin.set_fact` or `register`
+- `const__` prefix
+  - Variables dynamically defined by `ansible.builtin.set_fact` or `register`
+  - Variables statically defined in such like inventory's vars, group_vars, host_vars and etc.
 
-    | var                       | description                                                                                               |
-    | :------------------------ | :-------------------------------------------------------------------------------------------------------- |
-    | `var__fizz`               | defined in playbook by `ansible.builtin.set_fact` or `register`                                           |
-    | `some_role__var__fizz`    | defined in `roles/<role_name>/tasks` by `ansible.builtin.set_fact` or `register`                          |
-    | `some_role__arg__fizz`    | defined by `ansible.builtin.include_role`'s `vars` key and shouldn't changed in `roles/<role_name>/tasks` |
-    | `some_role__args`         | defined by `ansible.builtin.include_role`'s `vars` key and shouldn't changed in `roles/<role_name>/tasks` |
-    | `some_role__const__fizz`  | defined only in `roles/<role_name>/vars/`.                                                                |
-    | `some_tasks__var__fizz`   | defined in `tasks` by `ansible.builtin.set_fact` or `register`                                            |
-    | `some_tasks__const__fizz` | defined by `ansible.builtin.include_role`'s vars key and not changed in `tasks`                           |
+### Vars in `tasks/<name>.yml` or `roles/<name>/tasks/main.yml`
+
+- `<name>_role__var__` prefix
+  - These variables are dynamically defined in `roles/<name>/tasks/main.yml`.
+- `<name>_role__const__` prefix
+  - These variables are defined in `roles/<name>/vars/main.yml` and shouldn't be changed dynamically.
+- `some_role__arg__` prefix
+  - These variables are defined by `ansible.builtin.include_role`'s `vars` key and shouldn't be changed dynamically.
+- `some_role__args`
+
+  - These variables are defined by `ansible.builtin.include_role`'s `vars` key and shouldn't be changed dynamically.
+  - This is useful when you want to send vars as dict.
 
     ```yaml
-    tasks:
-      - name: Some task
-        ansible.builtin.include_role:
-          name: <role_name>
-        vars:
-          some_role__const__one: value1
-          some_role__const__two: value2
+    - name: Sample
+      ansible.builtin.include_role:
+        name: some_role
+      vars:
+        some_role__args:
+          key1: value1
+          key2: value2
     ```
+
+### examples
+
+```yaml
+tasks:
+  - name: Some task
+    ansible.builtin.include_role:
+      name: <role_name>
+    vars:
+      some_role__const__one: value1
+      some_role__const__two: value2
+```
 
 ## Others
 
