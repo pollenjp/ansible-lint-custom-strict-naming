@@ -49,6 +49,8 @@ mdurl==0.1.2
     # via markdown-it-py
 mypy-extensions==1.0.0
     # via black
+nodeenv==1.9.1
+    # via pyright
 packaging==24.1
     # via ansible-compat
     # via ansible-core
@@ -64,6 +66,7 @@ pycparser==2.22
     # via cffi
 pygments==2.18.0
     # via rich
+pyright==1.1.377
 pyyaml==6.0.2
     # via ansible-compat
     # via ansible-core

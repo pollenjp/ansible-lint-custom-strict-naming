@@ -1,4 +1,5 @@
 # Standard Library
+import typing as t
 from logging import NullHandler
 from logging import getLogger
 from pathlib import Path
@@ -31,7 +32,7 @@ like 'var__', '<role_name>_role__var__', or '<tasks_name>_tasks__var__'.
 class RegisterPrefix(AnsibleLintRule):
     id = ID
     description = DESCRIPTION
-    tags = ["formatting"]
+    tags: t.ClassVar[list[str]] = ["formatting"]  # pyright: ignore[reportIncompatibleVariableOverride]
 
     def matchtask(self, task: Task, file: Lintable | None = None) -> bool | str:
         if (task_result := task.get("register")) is None:
