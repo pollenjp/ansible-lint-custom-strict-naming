@@ -5,58 +5,97 @@
 #   pre: false
 #   features: []
 #   all-features: false
+#   with-sources: false
+#   generate-hashes: false
+#   universal: false
 
 -e file:.
 ansible-compat==4.1.10
+    # via ansible-lint
 ansible-core==2.16.0
+    # via ansible-compat
+    # via ansible-lint
 ansible-lint==6.22.0
-argcomplete==3.1.4
+    # via ansible-lint-custom-strict-naming
 attrs==23.1.0
-autoflake8==0.4.1
+    # via jsonschema
+    # via referencing
 black==23.11.0
+    # via ansible-lint
 bracex==2.4
+    # via wcmatch
 certifi==2023.7.22
+    # via requests
 cffi==1.16.0
+    # via cryptography
 charset-normalizer==3.3.2
+    # via requests
 click==8.1.7
-colorlog==6.7.0
+    # via black
 cryptography==41.0.5
-distlib==0.3.7
+    # via ansible-core
 filelock==3.13.1
-flake8==6.1.0
+    # via ansible-lint
 idna==3.4
-iniconfig==2.0.0
-isort==5.12.0
+    # via requests
 jinja2==3.1.2
+    # via ansible-core
 jsonschema==4.19.2
+    # via ansible-compat
+    # via ansible-lint
 jsonschema-specifications==2023.7.1
+    # via jsonschema
 markdown-it-py==3.0.0
+    # via rich
 markupsafe==2.1.3
-mccabe==0.7.0
+    # via jinja2
 mdurl==0.1.2
-mypy==1.6.1
+    # via markdown-it-py
 mypy-extensions==1.0.0
-nox==2023.4.22
+    # via black
 packaging==23.2
+    # via ansible-compat
+    # via ansible-core
+    # via ansible-lint
+    # via black
 pathspec==0.11.2
+    # via ansible-lint
+    # via black
+    # via yamllint
 platformdirs==3.11.0
-pluggy==1.3.0
-pycodestyle==2.11.1
+    # via black
 pycparser==2.21
-pyflakes==3.1.0
+    # via cffi
 pygments==2.16.1
-pytest==7.4.3
+    # via rich
 pyyaml==6.0.1
+    # via ansible-compat
+    # via ansible-core
+    # via ansible-lint
+    # via yamllint
 referencing==0.30.2
+    # via jsonschema
+    # via jsonschema-specifications
 requests==2.31.0
+    # via ansible-lint
 resolvelib==1.0.1
+    # via ansible-core
 rich==13.6.0
+    # via ansible-lint
 rpds-py==0.12.0
+    # via jsonschema
+    # via referencing
 ruamel-yaml==0.18.5
+    # via ansible-lint
 ruamel-yaml-clib==0.2.8
+    # via ruamel-yaml
+ruff==0.6.2
 subprocess-tee==0.4.1
-typing-extensions==4.8.0
+    # via ansible-compat
+    # via ansible-lint
 urllib3==2.0.7
-virtualenv==20.24.6
+    # via requests
 wcmatch==8.5
+    # via ansible-lint
 yamllint==1.32.0
+    # via ansible-lint
