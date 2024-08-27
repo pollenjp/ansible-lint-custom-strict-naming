@@ -39,9 +39,7 @@ def get_tasks_name_from_tasks_file(file: Lintable) -> str:
 
 
 def is_registered_key(key: str) -> bool:
-    return key in set(
-        (
-            FILENAME_KEY,
-            LINE_NUMBER_KEY,
-        )
-    )
+    return key in {
+        FILENAME_KEY,
+        LINE_NUMBER_KEY,
+    }

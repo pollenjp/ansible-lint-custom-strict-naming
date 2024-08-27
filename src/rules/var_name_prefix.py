@@ -1,4 +1,5 @@
 # Standard Library
+import typing as t
 from logging import NullHandler
 from logging import getLogger
 from pathlib import Path
@@ -35,7 +36,7 @@ UnmatchedType = bool | list[MatchError]
 class VarNamePrefix(AnsibleLintRule):
     id = ID
     description = DESCRIPTION
-    tags = ["formatting"]
+    tags: t.ClassVar[list[str]] = ["formatting"]  # pyright: ignore[reportIncompatibleVariableOverride]
 
     def matchtask(self, task: Task, file: Lintable | None = None) -> UnmatchedType:
         match task.action:
@@ -89,6 +90,7 @@ class VarNamePrefix(AnsibleLintRule):
         # check vars
         prefix = f"{role_name}_role__arg__"
         completely_matched_name = f"{role_name}_role__args"
+
         def validate_key_name(key: str):
             """keyが条件を満たすか"""
             if is_registered_key(key):
@@ -106,7 +108,7 @@ class VarNamePrefix(AnsibleLintRule):
                 filename=file,
             )
             for key in task_vars.keys()
-            if  not validate_key_name(key)
+            if not validate_key_name(key)
         ]
 
     def match_task_for_include_tasks_module(self, task: Task, file: Lintable | None = None) -> bool | list[MatchError]:
@@ -120,6 +122,7 @@ class VarNamePrefix(AnsibleLintRule):
         # check vars
         prefix = f"{role_name}_tasks__arg__"
         completely_matched_name = f"{role_name}_tasks__args"
+
         def validate_key_name(key: str):
             """keyが条件を満たすか"""
             if is_registered_key(key):

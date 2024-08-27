@@ -17,6 +17,9 @@ ansible-core==2.17.3
     # via ansible-lint
 ansible-lint==24.7.0
     # via ansible-lint-custom-strict-naming
+    # via sample1
+ansible-lint-custom-strict-naming @ file:///${PROJECT_ROOT}/../..
+    # via sample1
 attrs==24.2.0
     # via jsonschema
     # via referencing
@@ -49,8 +52,6 @@ mdurl==0.1.2
     # via markdown-it-py
 mypy-extensions==1.0.0
     # via black
-nodeenv==1.9.1
-    # via pyright
 packaging==24.1
     # via ansible-compat
     # via ansible-core
@@ -66,7 +67,6 @@ pycparser==2.22
     # via cffi
 pygments==2.18.0
     # via rich
-pyright==1.1.377
 pyyaml==6.0.2
     # via ansible-compat
     # via ansible-core
@@ -77,7 +77,7 @@ referencing==0.35.1
     # via jsonschema-specifications
 resolvelib==1.0.1
     # via ansible-core
-rich==13.7.1
+rich==13.8.0
     # via ansible-lint
 rpds-py==0.20.0
     # via jsonschema
@@ -86,7 +86,6 @@ ruamel-yaml==0.18.6
     # via ansible-lint
 ruamel-yaml-clib==0.2.8
     # via ruamel-yaml
-ruff==0.6.2
 subprocess-tee==0.4.2
     # via ansible-compat
     # via ansible-lint
@@ -94,5 +93,5 @@ wcmatch==9.0
     # via ansible-lint
 yamllint==1.35.1
     # via ansible-lint
-zipp==3.20.0
+zipp==3.20.1
     # via importlib-metadata
