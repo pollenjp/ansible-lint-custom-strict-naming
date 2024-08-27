@@ -1,11 +1,12 @@
 
 .PHONY: lint
 lint:
-	rye run nox -s lint
+	rye run ruff check
+	rye run pyright
 
-.PHONY: format
-format:
-	rye run nox -s format
+.PHONY: fmt
+fmt:
+	rye run ruff format
 
 .PHONY: test
 test:

@@ -45,6 +45,16 @@ Strict naming rule is useful to avoid name collision and to search defined posit
 - `some_role__args`
 
   - These variables are defined by `ansible.builtin.include_role`'s `vars` key and shouldn't be changed dynamically.
+
+    ```yaml
+    - name: Sample
+      ansible.builtin.include_role:
+        name: some_role
+      vars:
+        some_role__arg__key1: value1
+        some_role__arg__key2: value2
+    ```
+
   - This is useful when you want to send vars as dict.
 
     ```yaml
@@ -56,18 +66,6 @@ Strict naming rule is useful to avoid name collision and to search defined posit
           key1: value1
           key2: value2
     ```
-
-### examples
-
-```yaml
-tasks:
-  - name: Some task
-    ansible.builtin.include_role:
-      name: <role_name>
-    vars:
-      some_role__const__one: value1
-      some_role__const__two: value2
-```
 
 ## Others
 
