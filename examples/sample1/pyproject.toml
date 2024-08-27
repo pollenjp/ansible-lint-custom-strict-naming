@@ -1,0 +1,26 @@
+[project]
+name = "sample1"
+version = "0.1.0"
+description = "Add your description here"
+authors = [{ name = "pollenjp", email = "polleninjp@gmail.com" }]
+dependencies = [
+    "ansible-lint>=6.21.1",
+    # "ansible-lint-custom-strict-naming>=0.1.0",
+    "ansible-lint-custom-strict-naming @ file:///${PROJECT_ROOT}/../..",
+]
+readme = "README.md"
+requires-python = ">= 3.11"
+
+[build-system]
+# use pdm for relative path dependencies
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+# [[tool.rye.sources]]
+# name = "testpypi"
+# url = "https://test.pypi.org/simple/"
+# type = "index"

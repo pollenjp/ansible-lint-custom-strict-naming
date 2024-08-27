@@ -33,10 +33,7 @@ packages = [
 
 [tool.rye]
 managed = true
-dev-dependencies = [
-    "ruff>=0.6.2",
-    "pyright>=1.1.377",
-]
+dev-dependencies = ["ruff>=0.6.2", "pyright>=1.1.377"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
