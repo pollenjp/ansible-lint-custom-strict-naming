@@ -1,0 +1,13 @@
+---
+- name: Set vars (tasks/)
+  ansible.builtin.set_fact:
+    my_var: "hoge"
+- name: Set vars (tasks/)
+  ansible.builtin.set_fact:
+    hoge: "hoge"
+- name: Set vars (tasks/)
+  ansible.builtin.set_fact:
+    hoge: "hoge"
+- name: Set vars (tasks/)
+  ansible.builtin.set_fact:
+    sample_role__hoge: "hoge"
