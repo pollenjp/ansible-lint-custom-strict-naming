@@ -1,6 +1,6 @@
 [project]
 name = "ansible-lint-custom-strict-naming"
-version = "1.0.1"
+version = "1.1.0"
 description = "Add your description here"
 authors = [{ name = "pollenjp", email = "polleninjp@gmail.com" }]
 dependencies = ["ansible-lint>=6.21.1"]
