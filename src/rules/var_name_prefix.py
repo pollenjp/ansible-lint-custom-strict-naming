@@ -38,6 +38,7 @@ class VarNamePrefix(AnsibleLintRule):
     description = DESCRIPTION
     tags: t.ClassVar[list[str]] = ["formatting"]  # pyright: ignore[reportIncompatibleVariableOverride]
 
+    @t.override
     def matchtask(self, task: Task, file: Lintable | None = None) -> UnmatchedType:
         match task.action:
             case "ansible.builtin.set_fact":
