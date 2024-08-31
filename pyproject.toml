@@ -5,7 +5,7 @@ description = "Add your description here"
 authors = [{ name = "pollenjp", email = "polleninjp@gmail.com" }]
 dependencies = ["ansible-lint>=6.24.0; sys_platform != 'Windows'"]
 readme = "README.md"
-requires-python = ">= 3.11"
+requires-python = ">= 3.12"
 classifiers = [
     "Development Status :: 1 - Planning",
     "Programming Language :: Python :: 3",
