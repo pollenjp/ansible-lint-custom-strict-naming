@@ -1,0 +1,38 @@
+name: Lint Python
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+env:
+  UV_VERSION: 0.4.1
+jobs:
+  ruff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Instal uv
+        run: |
+          set -eux -o pipefail -o posix
+          curl -LsSf https://astral.sh/uv/${{ env.UV_VERSION }}/install.sh | sh
+          echo PATH="${HOME}/.cargo/bin:${PATH}" >> "${GITHUB_ENV}"
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: uv sync --frozen
+      - name: Run ruff check
+        run: uv run ruff check
+
+  pyright:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Instal uv
+        run: |
+          set -eux -o pipefail -o posix
+          curl -LsSf https://astral.sh/uv/${{ env.UV_VERSION }}/install.sh | sh
+          echo PATH="${HOME}/.cargo/bin:${PATH}" >> "${GITHUB_ENV}"
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: uv sync --frozen
+      - name: Run pyright
+        run: uv run pyright ./src

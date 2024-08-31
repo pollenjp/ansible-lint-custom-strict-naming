@@ -1,15 +1,16 @@
 [project]
 name = "ansible-lint-custom-strict-naming"
-version = "1.0.1"
+version = "1.1.0"
 description = "Add your description here"
 authors = [{ name = "pollenjp", email = "polleninjp@gmail.com" }]
-dependencies = ["ansible-lint>=6.21.1"]
+dependencies = ["ansible-lint>=6.24.0; sys_platform != 'Windows'"]
 readme = "README.md"
-requires-python = ">= 3.11"
+requires-python = ">= 3.12"
 classifiers = [
     "Development Status :: 1 - Planning",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 [project.urls]
@@ -27,13 +28,14 @@ packages = [
     "ansiblelint.rules.custom.ansible_lint_custom_strict_naming",
 ]
 
+[tool.uv]
+# https://github.com/astral-sh/uv/issues/6127#issuecomment-2298975659
+environments = ["platform_system != 'Windows'"]
+dev-dependencies = ["pyright>=1.1.378", "ruff>=0.6.3"]
+
 [tool.setuptools.package-dir]
 "ansible_lint_custom_strict_naming" = "src/ansible_lint_custom_strict_naming"
 "ansiblelint.rules.custom.ansible_lint_custom_strict_naming" = "src/rules"
-
-[tool.rye]
-managed = true
-dev-dependencies = ["ruff>=0.6.2", "pyright>=1.1.377"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -87,3 +89,23 @@ ban-relative-imports = "all"
 [tool.ruff.lint.isort]
 known-first-party = ["pollenjp_infra_ansible"]
 force-single-line = true
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+# https://github.com/microsoft/pyright/blob/main/docs/configuration.md#diagnostic-settings-defaults
+# 明示的にオフ
+reportMissingTypeStubs = true
+reportUnknownMemberType = "error"
+reportUntypedFunctionDecorator = "error"
+deprecateTypingAliases = true
+reportCallInDefaultInitializer = "error"
+reportImplicitOverride = "error"
+reportImplicitStringConcatenation = "error"
+reportImportCycles = "error"
+reportMissingSuperCall = "error"
+reportPropertyTypeMismatch = "error"
+reportShadowedImports = "error"
+reportUninitializedInstanceVariable = "error"
+reportUnnecessaryTypeIgnoreComment = "error"
+reportUnusedCallResult = "error"
