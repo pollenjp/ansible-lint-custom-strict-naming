@@ -37,4 +37,4 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
       - name: Run pyright
-        run: uv run pyright ./src
+        run: uv run pyright
