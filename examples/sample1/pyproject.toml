@@ -9,18 +9,12 @@ dependencies = [
     "ansible-lint-custom-strict-naming @ file:///${PROJECT_ROOT}/../..",
 ]
 readme = "README.md"
-requires-python = ">= 3.11"
+requires-python = ">= 3.12"
 
 [build-system]
 # use pdm for relative path dependencies
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
-[tool.rye]
-managed = true
-dev-dependencies = []
-
-# [[tool.rye.sources]]
-# name = "testpypi"
-# url = "https://test.pypi.org/simple/"
-# type = "index"
+[tool.uv]
+environments = ["platform_system != 'Windows'"]
