@@ -34,6 +34,7 @@ class RegisterPrefix(AnsibleLintRule):
     description = DESCRIPTION
     tags: t.ClassVar[list[str]] = ["formatting"]  # pyright: ignore[reportIncompatibleVariableOverride]
 
+    @t.override
     def matchtask(self, task: Task, file: Lintable | None = None) -> bool | str:
         if (task_result := task.get("register")) is None:
             return False

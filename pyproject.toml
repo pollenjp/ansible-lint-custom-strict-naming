@@ -95,10 +95,9 @@ pythonVersion = "3.12"
 typeCheckingMode = "strict"
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md#diagnostic-settings-defaults
 # 明示的にオフ
-reportMissingTypeStubs = false
-reportUnknownMemberType = "none"
-reportUntypedFunctionDecorator = "none"
-# 明示的にオン
+reportMissingTypeStubs = true
+reportUnknownMemberType = "error"
+reportUntypedFunctionDecorator = "error"
 deprecateTypingAliases = true
 reportCallInDefaultInitializer = "error"
 reportImplicitOverride = "error"
@@ -109,4 +108,4 @@ reportPropertyTypeMismatch = "error"
 reportShadowedImports = "error"
 reportUninitializedInstanceVariable = "error"
 reportUnnecessaryTypeIgnoreComment = "error"
-# reportUnusedCallResult = "error"
+reportUnusedCallResult = "error"
