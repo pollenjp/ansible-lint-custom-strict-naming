@@ -1,35 +1,18 @@
 
 .PHONY: lint
 lint:
-	rye run ruff check
-	rye run pyright
+	uv run ruff check
+	uv run pyright
 
 .PHONY: fmt
 fmt:
-	rye run ruff format
-
-.PHONY: test
-test:
-	rye run nox -s test
-
-.PHONY: nox
-nox:
-	rye run nox
+	uv run ruff format
 
 .PHONY: build
 build:
 	${MAKE} clean
-	rye build
+	uvx --from build pyproject-build --installer uv
 
 .PHONY: clean
 clean:
-	rm -rf dist *.egg-info
-
-publish-test:
-	${MAKE} build
-	rye publish --verbose --repository testpypi --repository-url https://test.pypi.org/legacy/
-
-
-publish-prod:
-	${MAKE} build
-	rye publish
+	rm -rf build dist *.egg-info
