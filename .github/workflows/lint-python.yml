@@ -6,6 +6,8 @@ on:
   pull_request:
     branches:
       - main
+      - main-pre
+      - release/*
 env:
   UV_VERSION: 0.4.1
 jobs:
