@@ -6,6 +6,8 @@ on:
   pull_request:
     branches:
       - main
+      - main-pre
+      - release/*
 env:
   UV_VERSION: 0.4.1
 jobs:
@@ -35,4 +37,4 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
       - name: Run pyright
-        run: uv run pyright ./src
+        run: uv run pyright

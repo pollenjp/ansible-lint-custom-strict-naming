@@ -1,15 +1,14 @@
 [project]
 name = "ansible-lint-custom-strict-naming"
-version = "1.1.0"
+version = "1.1.1"
 description = "Add your description here"
 authors = [{ name = "pollenjp", email = "polleninjp@gmail.com" }]
-dependencies = ["ansible-lint>=6.24.0; sys_platform != 'Windows'"]
+dependencies = ["ansible-lint>=6.24.0"]
 readme = "README.md"
 requires-python = ">= 3.12"
 classifiers = [
     "Development Status :: 1 - Planning",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
 
@@ -94,10 +93,6 @@ force-single-line = true
 pythonVersion = "3.12"
 typeCheckingMode = "strict"
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md#diagnostic-settings-defaults
-# 明示的にオフ
-reportMissingTypeStubs = true
-reportUnknownMemberType = "error"
-reportUntypedFunctionDecorator = "error"
 deprecateTypingAliases = true
 reportCallInDefaultInitializer = "error"
 reportImplicitOverride = "error"
