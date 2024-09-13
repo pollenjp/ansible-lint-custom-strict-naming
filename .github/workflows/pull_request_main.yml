@@ -13,7 +13,7 @@ permissions:
   contents: read
 defaults:
   run:
-    shell: bash -eux -o pipefail -o posix
+    shell: bash -eux -o pipefail -o posix {0}
 jobs:
   call_autolabel_workflow:
     permissions:

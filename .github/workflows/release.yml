@@ -7,10 +7,10 @@ on:
 permissions:
   contents: read
 env:
-  UV_VERSION: 0.4.1
+  UV_VERSION: 0.4.9
 defaults:
   run:
-    shell: bash -eux -o pipefail -o posix
+    shell: bash -eux -o pipefail -o posix {0}
 jobs:
   update_release:
     permissions:
