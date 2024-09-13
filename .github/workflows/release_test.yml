@@ -8,7 +8,10 @@ on:
 permissions:
   contents: read
 env:
-  UV_VERSION: 0.4.1
+  UV_VERSION: 0.4.9
+defaults:
+  run:
+    shell: bash -eux -o pipefail -o posix {0}
 jobs:
   # https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-pypi
   release-build:
@@ -16,7 +19,6 @@ jobs:
     steps:
       - name: Instal uv
         run: |
-          set -eux -o pipefail -o posix
           curl -LsSf https://astral.sh/uv/${{ env.UV_VERSION }}/install.sh | sh
           echo PATH="${HOME}/.cargo/bin:${PATH}" >> "${GITHUB_ENV}"
       - uses: actions/checkout@v4
