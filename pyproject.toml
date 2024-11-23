@@ -16,6 +16,9 @@ dynamic = ["version"]
 "Homepage" = "https://github.com/pollenjp/ansible-lint-custom-strict-naming"
 "Repository" = "https://github.com/pollenjp/ansible-lint-custom-strict-naming"
 
+[dependency-groups]
+dev = ["pyright>=1.1.378", "ruff>=0.6.3"]
+
 
 [build-system]
 requires = ["setuptools", "wheel"]
@@ -30,7 +33,6 @@ packages = [
 [tool.uv]
 # https://github.com/astral-sh/uv/issues/6127#issuecomment-2298975659
 environments = ["platform_system != 'Windows'"]
-dev-dependencies = ["pyright>=1.1.378", "ruff>=0.6.3"]
 
 [tool.setuptools.package-dir]
 "ansible_lint_custom_strict_naming" = "src/ansible_lint_custom_strict_naming"
