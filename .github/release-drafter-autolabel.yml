@@ -2,23 +2,19 @@ template: |
   ## Changes
 
   $CHANGES
-
 autolabeler:
   - label: bug
     branch:
-      - '/^fix[/-].+/'
-      - '/^bugfix[/-].+/'
+      - "/^fix[/-].+/"
+      - "/^bugfix[/-].+/"
   - label: documentation
     branch:
-      - '/doc(umentation)[/-].+/'
+      - "/doc(umentation)[/-].+/"
     files:
-      - '*.md'
+      - "*.md"
   - label: enhancement
     branch:
-      - '/(enhancement|improve)[/-].+/'
-  - label: feature
-    branch:
-      - '/^feat(ure)?[/-].+/'
+      - "/(feature/enhancement|improve)[/-].+/"
   - label: refactor
     branch:
-      - '/(refactor|refactoring)[/-].+/'
+      - "/(refactor|refactoring)[/-].+/"
