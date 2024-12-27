@@ -1,8 +1,8 @@
 
-.PHONY: debug
-debug:
-	${MAKE} install
-#	uv run ansible-lint -vvv
+.PHONY: test
+test:
+	rm -rf .venv
+	uv cache clean ansible-lint-custom-strict-naming
 	uv run ansible-lint
 
 .PHONY: install

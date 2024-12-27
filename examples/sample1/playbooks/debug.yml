@@ -13,7 +13,12 @@
         hoge: "hoge"
     - name: Set vars (playbooks/)
       ansible.builtin.set_fact:
-        sample_role__hoge: "hoge"
+        sample_role__arg__hoge: "hoge"
     - name: Include tasks (playbooks/)
       ansible.builtin.include_tasks:
         file: "./tasks/sample.yml"
+    - name: Debug (roles/
+      ansible.builtin.include_role:
+        name: sample
+      vars:
+        hoge: "hoge"

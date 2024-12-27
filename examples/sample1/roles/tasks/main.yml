@@ -1,4 +1,9 @@
 ---
+- name: Debug
+  ansible.builtin.debug:
+    msg: |
+      # {{ ansible_facts }}
+      {{ sample_role__arg__hoge }}
 - name: Set vars (roles/)
   ansible.builtin.set_fact:
     my_var: "hoge"
@@ -13,4 +18,4 @@
     sample_role__hoge: "hoge"
 - name: Debug
   ansible.builtin.debug:
-    msg: "{{ sample_role__hoge }}"
+    msg: "{{ sample_role__arg__hoge }}"

@@ -8,10 +8,10 @@ lint:
 fmt:
 	uv run ruff format
 
-.PHONY: build
-build:
-	${MAKE} clean
-	uvx --from build pyproject-build --installer uv
+.PHONY: test
+test:
+	uv run pytest
+	${MAKE} -C ./examples/sample1 test
 
 .PHONY: clean
 clean:
