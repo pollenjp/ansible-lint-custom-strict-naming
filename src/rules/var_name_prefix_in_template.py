@@ -33,7 +33,7 @@ UnmatchedType = bool | list[MatchError]
 class VarNamePrefixInTemplate(AnsibleLintRule):
     id = ID
     description = DESCRIPTION
-    tags: t.ClassVar[list[str]] = ["formatting"]  # pyright: ignore[reportIncompatibleVariableOverride]
+    tags: t.ClassVar[list[str]] = ["experimental"]  # pyright: ignore[reportIncompatibleVariableOverride]
 
     @t.override
     def matchtask(  # noqa: C901, PLR0912
