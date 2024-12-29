@@ -12,7 +12,7 @@ env:
   UV_VERSION: 0.5.13
 defaults:
   run:
-    shell: bash -eux -o pipefail
+    shell: bash -eux -o pipefail {0}
 jobs:
   lint:
     strategy:

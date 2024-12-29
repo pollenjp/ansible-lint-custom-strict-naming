@@ -38,7 +38,9 @@ def detect_strict_file_type(file: Lintable) -> StrictFileType | None:
             return StrictFileType.PLAYBOOK_FILE
         case "tasks":
             roles_path = list(map(Path, get_app(cached=True).runtime.config.default_roles_path))
-            if file.path.resolve().parents[2] in roles_path or file.path.resolve().parents[2].name == "roles":  # roles/<role_name>/tasks/<role_task>.yml
+            if (
+                role_candidate_path := file.path.resolve().parents[2]
+            ) in roles_path or role_candidate_path.name == "roles":  # roles/<role_name>/tasks/<role_task>.yml
                 return StrictFileType.ROLE_TASKS_FILE
             else:  # playbooks/tasks/some_task.yml
                 return StrictFileType.TASKS_FILE
