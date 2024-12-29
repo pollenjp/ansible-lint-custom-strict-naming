@@ -69,8 +69,14 @@ class VarNamePrefixInTemplate(AnsibleLintRule):
                 # <role_name>__args.xxx.yyy
                 # <role_name>__arg__<const|global|var>__
                 role_name = get_role_name_from_role_tasks_file(file)
-                # FIXME: ignore some values
-                prefixes = ["ansible_", f"{role_name}__args", *[f"{role_name}__{p_}__" for p_ in VarPrefixMap[VarPrefixKind.arg]]]
+                prefixes = [
+                    "ansible_",
+                    f"{role_name}_role__args",
+                    *[f"{role_name}_role__{p_}__" for p_ in VarPrefixMap[VarPrefixKind.arg]],
+                    # *[f"{role_name}_role__{p_}__" for p_ in VarPrefixMap[VarPrefixKind.const]],
+                    # *[f"{role_name}_role__{p_}__" for p_ in VarPrefixMap[VarPrefixKind.global_]],
+                    *[f"{role_name}_role__{p_}__" for p_ in VarPrefixMap[VarPrefixKind.var]],
+                ]
 
                 for _k, v, _path in nested_items_path(
                     data_collection=task,

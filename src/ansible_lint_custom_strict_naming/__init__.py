@@ -38,7 +38,7 @@ def detect_strict_file_type(file: Lintable) -> StrictFileType | None:
             return StrictFileType.PLAYBOOK_FILE
         case "tasks":
             roles_path = list(map(Path, get_app(cached=True).runtime.config.default_roles_path))
-            if file.path.resolve().parents[1] in roles_path or file.path.resolve().parents[1].name == "roles":  # roles/<role_name>/tasks/<role_task>.yml
+            if file.path.resolve().parents[2] in roles_path or file.path.resolve().parents[2].name == "roles":  # roles/<role_name>/tasks/<role_task>.yml
                 return StrictFileType.ROLE_TASKS_FILE
             else:  # playbooks/tasks/some_task.yml
                 return StrictFileType.TASKS_FILE
@@ -47,6 +47,9 @@ def detect_strict_file_type(file: Lintable) -> StrictFileType | None:
 
 
 def get_role_name_from_role_tasks_file(file: Lintable) -> str:
+    if detect_strict_file_type(file) != StrictFileType.ROLE_TASKS_FILE:
+        err_msg = f"file kind is not role_tasks: {file.kind}"
+        raise ValueError(err_msg)
     return f"{file.path.resolve().parents[1].name}"
 
 

@@ -1,0 +1,21 @@
+---
+- name: "Debug"
+  hosts: localhost
+  tasks:
+    - name: "Debug (playbooks/)"
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts }}"
+    - name: Set vars (playbooks/)
+      ansible.builtin.set_fact:
+        v__xxx: "xxx"
+    - name: Include tasks (playbooks/)
+      ansible.builtin.include_tasks:
+        file: "./tasks/sample.yml"
+    - name: Debug (roles/
+      ansible.builtin.include_role:
+        name: sample
+      vars:
+        sample_role__a__xxx: "xxx"
+        sample_role__arg__xxx: "xxx"
+        sample_role__args:
+          xxx: "xxx"

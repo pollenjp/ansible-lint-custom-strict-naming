@@ -1,0 +1,16 @@
+---
+- name: Debug
+  ansible.builtin.debug:
+    msg: |
+      # {{ ansible_facts }}
+      {{ sample_role__a__xxx }}
+      {{ sample_role__arg__xxx }}
+      {{ sample_role__args.xxx }}
+- name: Register test
+  ansible.builtin.command:
+    cmd: "echo test"
+  register: sample_role__v__result_test
+  changed_when: false
+- name: Debug
+  ansible.builtin.debug:
+    msg: "{{ sample_role__v__result_test }}"
