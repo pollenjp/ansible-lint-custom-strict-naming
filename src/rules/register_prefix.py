@@ -3,8 +3,6 @@ from logging import NullHandler
 from logging import getLogger
 from pathlib import Path
 
-from ansible_compat.runtime import Runtime
-from ansiblelint.app import get_app
 from ansiblelint.file_utils import Lintable
 from ansiblelint.rules import AnsibleLintRule
 from ansiblelint.utils import Task
@@ -34,7 +32,7 @@ class RegisterPrefix(AnsibleLintRule):
     id = ID
     description = DESCRIPTION
     tags: t.ClassVar[list[str]] = ["formatting"]  # pyright: ignore[reportIncompatibleVariableOverride]
-    runtime: Runtime = get_app(cached=True).runtime
+    version_changed: t.ClassVar[str] = "24.10.0"  # pyright: ignore[reportIncompatibleVariableOverride]
 
     @t.override
     def matchtask(self, task: Task, file: Lintable | None = None) -> bool | str:

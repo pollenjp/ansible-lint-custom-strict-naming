@@ -34,6 +34,7 @@ class VarNamePrefixInTemplate(AnsibleLintRule):
     id = ID
     description = DESCRIPTION
     tags: t.ClassVar[list[str]] = ["experimental"]  # pyright: ignore[reportIncompatibleVariableOverride]
+    version_changed: t.ClassVar[str] = "24.10.0"  # pyright: ignore[reportIncompatibleVariableOverride]
 
     @t.override
     def matchtask(  # noqa: C901, PLR0912

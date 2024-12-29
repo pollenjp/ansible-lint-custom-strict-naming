@@ -1,0 +1,36 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - main-pre
+      - release/*
+env:
+  UV_VERSION: 0.5.13
+defaults:
+  run:
+    shell: bash -eux -o pipefail
+jobs:
+  lint:
+    strategy:
+      matrix:
+        command:
+          - cmd: uv run ruff check
+            dir: .
+          - cmd: uv run pyright
+            dir: .
+          - cmd: make test
+            dir: examples/correct01
+    runs-on: ubuntu-latest
+    steps:
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: uv sync --frozen
+        working-directory: ${{ matrix.command.dir }}
+      - name: Run ${{ matrix.command.cmd }}
+        run: ${{ matrix.command.cmd }}
+        working-directory: ${{ matrix.command.dir }}
