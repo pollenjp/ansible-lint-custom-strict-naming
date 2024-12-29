@@ -1,0 +1,5 @@
+---
+parseable: true
+use_default_rules: true
+skip_list:
+  - "yaml" # Disable YAML linting since it's done by yamllint

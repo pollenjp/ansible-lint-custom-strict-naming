@@ -1,0 +1,12 @@
+---
+- name: Set vars (tasks/)
+  ansible.builtin.set_fact:
+    sample_tasks__v__xxx: "xxx"
+- name: Register test
+  ansible.builtin.command:
+    cmd: "echo test"
+  register: sample_tasks__v__result_test
+  changed_when: false
+- name: Debug
+  ansible.builtin.debug:
+    msg: "{{ sample_tasks__v__result_test }}"

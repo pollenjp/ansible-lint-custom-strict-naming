@@ -7,10 +7,10 @@ on:
 permissions:
   contents: read
 env:
-  UV_VERSION: 0.4.9
+  UV_VERSION: 0.5.3
 defaults:
   run:
-    shell: bash -eux -o pipefail -o posix {0}
+    shell: bash -eux -o pipefail {0}
 jobs:
   update_release:
     permissions:
@@ -34,7 +34,6 @@ jobs:
           echo "package_version=${package_version}" >> $GITHUB_OUTPUT
       - name: Push tag
         run: |
-          set -eux -o pipefail
           git tag v${{ steps.package_version.outputs.package_version }}
           git push origin refs/tags/v${{ steps.package_version.outputs.package_version }}
       - uses: release-drafter/release-drafter@v5
@@ -50,14 +49,13 @@ jobs:
     steps:
       - name: Instal uv
         run: |
-          set -eux -o pipefail -o posix
           curl -LsSf https://astral.sh/uv/${{ env.UV_VERSION }}/install.sh | sh
-          echo PATH="${HOME}/.cargo/bin:${PATH}" >> "${GITHUB_ENV}"
+          echo "${HOME}/.local/bin" >> "${GITHUB_PATH}"
       - uses: actions/checkout@v4
       - name: Build
         run: uvx --from build pyproject-build --installer uv
       - name: upload dists
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-dists
           path: dist/
@@ -73,7 +71,7 @@ jobs:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - name: Retrieve release distributions
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: release-dists
           path: dist/
